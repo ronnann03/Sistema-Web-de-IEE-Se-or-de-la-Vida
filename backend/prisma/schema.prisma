@@ -1,0 +1,118 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id        String   @id @default(cuid())
+  nombre    String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Miembro {
+  id              String           @id @default(cuid())
+  nombre          String
+  apellido        String
+  dni             String           @unique
+  fechaNacimiento DateTime
+  genero          Genero
+  telefono        String
+  direccion       String
+  cargo           String
+  area            String
+  fechaIngreso    DateTime
+  tipoContrato    TipoContrato
+  sueldo          Float
+  estado          Estado           @default(ACTIVO)
+  fotoUrl         String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  asistencias     Asistencia[]
+  documentos      Documento[]
+  horarios        HorarioMiembro[]
+}
+
+model Asistencia {
+  id          String         @id @default(cuid())
+  miembroId   String
+  miembro     Miembro        @relation(fields: [miembroId], references: [id], onDelete: Cascade)
+  fecha       DateTime
+  tipo        TipoAsistencia @default(PRESENTE)
+  observacion String?
+  sesionId    String?
+  sesion      Sesion?        @relation(fields: [sesionId], references: [id])
+  createdAt   DateTime       @default(now())
+}
+
+model Documento {
+  id        String   @id @default(cuid())
+  miembroId String
+  miembro   Miembro  @relation(fields: [miembroId], references: [id], onDelete: Cascade)
+  nombre    String
+  tipoDoc   String
+  url       String
+  tamano    Int?
+  createdAt DateTime @default(now())
+}
+
+model Horario {
+  id          String           @id @default(cuid())
+  nombre      String
+  descripcion String?
+  diasSemana  Int[]
+  hora        String
+  miembros    HorarioMiembro[]
+  sesiones    Sesion[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+model HorarioMiembro {
+  horarioId String
+  miembroId String
+  horario   Horario @relation(fields: [horarioId], references: [id], onDelete: Cascade)
+  miembro   Miembro @relation(fields: [miembroId], references: [id], onDelete: Cascade)
+
+  @@id([horarioId, miembroId])
+}
+
+model Sesion {
+  id          String       @id @default(cuid())
+  horarioId   String?
+  horario     Horario?     @relation(fields: [horarioId], references: [id])
+  fecha       DateTime
+  descripcion String?
+  asistencias Asistencia[]
+  createdAt   DateTime     @default(now())
+}
+
+enum Genero {
+  MASCULINO
+  FEMENINO
+  OTRO
+}
+
+enum TipoContrato {
+  PLANILLA
+  HONORARIOS
+  PRACTICANTE
+}
+
+enum Estado {
+  ACTIVO
+  INACTIVO
+}
+
+enum TipoAsistencia {
+  PRESENTE
+  AUSENTE
+  TARDANZA
+  PERMISO
+}

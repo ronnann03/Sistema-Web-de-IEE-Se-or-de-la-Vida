@@ -3,11 +3,13 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
+import swaggerUi from "swagger-ui-express";
 import authRoutes from "./routes/auth";
 import miembrosRoutes from "./routes/miembros";
 import statsRoutes from "./routes/stats";
 import horariosRoutes from "./routes/horarios";
 import asistenciasRoutes from "./routes/asistencias";
+import { swaggerSpec } from "./swagger";
 
 dotenv.config();
 
@@ -39,6 +41,7 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 app.use("/uploads", express.static(uploadDir));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Rutas
 app.use("/api/auth", authRoutes);

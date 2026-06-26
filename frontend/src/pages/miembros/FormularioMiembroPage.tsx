@@ -3,9 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { FileText, X } from "lucide-react";
+import { FileText, X, Search } from "lucide-react";
 import { miembrosService } from "../../services/miembros";
 import { documentosService } from "../../services/documentos";
+import { consultasService } from "../../services/consultas";
 import { getUploadUrl } from "../../services/api";
 import type { MiembroFormData } from "../../types";
 
@@ -38,9 +39,32 @@ export default function FormularioMiembroPage() {
   const [cvFile, setCvFile] = useState<File | null>(null);
   const [error, setError] = useState("");
 
-  const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormData>({
+  const [buscandoDni, setBuscandoDni] = useState(false);
+
+  const { register, handleSubmit, reset, watch, setValue, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
+
+  const dniWatch = watch("dni");
+
+  const handleBuscarDni = async () => {
+    if (!dniWatch || dniWatch.length !== 8) return;
+    setBuscandoDni(true);
+    setError("");
+    try {
+      const data = await consultasService.consultarDNI(dniWatch);
+      if (data && data.nombres) {
+        setValue("nombre", data.nombres);
+        setValue("apellido", `${data.apellidoPaterno || ""} ${data.apellidoMaterno || ""}`.trim());
+      } else {
+        setError("DNI no encontrado en la API externa");
+      }
+    } catch {
+      setError("Error al conectar con la API de consultas");
+    } finally {
+      setBuscandoDni(false);
+    }
+  };
 
   useEffect(() => {
     if (isEdit && id) {
@@ -105,7 +129,27 @@ export default function FormularioMiembroPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {campo("Nombre", "nombre", "text", "Juan")}
             {campo("Apellido", "apellido", "text", "Pérez")}
-            {campo("DNI", "dni", "text", "12345678")}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">DNI</label>
+              <div className="flex gap-2">
+                <input
+                  {...register("dni")}
+                  type="text"
+                  placeholder="12345678"
+                  className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                  type="button"
+                  onClick={handleBuscarDni}
+                  disabled={buscandoDni || !dniWatch || dniWatch.length !== 8}
+                  className="bg-blue-100 text-blue-700 px-3 py-2 rounded-lg hover:bg-blue-200 transition-colors disabled:opacity-50 flex items-center justify-center"
+                  title="Buscar DNI"
+                >
+                  {buscandoDni ? <span className="animate-spin text-sm">↻</span> : <Search size={18} />}
+                </button>
+              </div>
+              {errors.dni && <p className="text-red-500 text-xs mt-1">{errors.dni?.message as string}</p>}
+            </div>
             {campo("Fecha de Nacimiento", "fechaNacimiento", "date")}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Género</label>

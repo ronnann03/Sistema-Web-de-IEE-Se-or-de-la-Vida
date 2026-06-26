@@ -8,6 +8,7 @@ import miembrosRoutes from "./routes/miembros";
 import statsRoutes from "./routes/stats";
 import horariosRoutes from "./routes/horarios";
 import asistenciasRoutes from "./routes/asistencias";
+import consultasRoutes from "./routes/consultas";
 
 dotenv.config();
 
@@ -46,6 +47,7 @@ app.use("/api/miembros", miembrosRoutes);
 app.use("/api/stats", statsRoutes);
 app.use("/api/horarios", horariosRoutes);
 app.use("/api/asistencias", asistenciasRoutes);
+app.use("/api/consultas", consultasRoutes);
 
 // Ruta base
 app.get("/", (req, res) => {

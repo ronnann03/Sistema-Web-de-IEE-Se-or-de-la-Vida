@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useAuth } from "../hooks/useAuth";
 import { User, Eye, EyeOff, AlertCircle, Info, CheckCircle } from "lucide-react";
+import loginImage from "../assets/Inicio.png";
 
 const schema = z.object({
   username: z.string().min(1, "Ingresa tu usuario"),
@@ -52,10 +53,10 @@ export default function LoginPage() {
         {/* Lado izquierdo: imagen (oculto en móviles) */}
         <div className="hidden lg:block lg:w-1/2 relative bg-gray-100 overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=1200"
-            alt="Docente en clase"
-            className="absolute inset-0 w-full h-full object-cover grayscale-[10%] brightness-[93%] contrast-[102%] object-left"
-            style={{ transform: "scale(1.02)" }}
+            src={loginImage}
+            alt="Inicio de sesión"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ objectPosition: "65% center" }}
           />
           <div className="absolute inset-0 bg-black/5" />
         </div>

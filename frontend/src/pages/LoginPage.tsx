@@ -66,8 +66,8 @@ export default function LoginPage() {
           {/* Cabecera: logo PORTAL DOCENTE */}
           <div className="flex items-center justify-between gap-4 mb-10">
             <div className="flex items-center gap-1.5 select-none">
-              <span className="font-title font-black text-xl sm:text-2xl tracking-tight text-black">PORTAL</span>
-              <span className="font-title font-black text-xl sm:text-2xl tracking-tight text-[#0054a6]">DOCENTE</span>
+              <span className="font-title font-black text-xl sm:text-2xl tracking-tight text-black">PORTAL DE</span>
+              <span className="font-title font-black text-xl sm:text-2xl tracking-tight text-[#0054a6]">ASISTENCIAS</span>
             </div>
             <div />
           </div>
@@ -99,7 +99,7 @@ export default function LoginPage() {
               {/* Campo: usuario */}
               <div className="space-y-2.5">
                 <label className="block text-xs sm:text-[13px] font-extrabold text-[#1e293b] tracking-wide uppercase sm:normal-case">
-                  Usuario código de docente
+                  Codigo de Usuario
                 </label>
                 <div className="relative">
                   <input

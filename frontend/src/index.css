@@ -6,8 +6,12 @@
 
 body {
   margin: 0;
-  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+.font-title {
+  font-family: 'Montserrat', sans-serif;
 }
 
 #root {

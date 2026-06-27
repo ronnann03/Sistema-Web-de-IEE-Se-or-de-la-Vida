@@ -4,6 +4,7 @@ import path from "path";
 import fs from "fs";
 import prisma from "../lib/prisma";
 import { authMiddleware } from "../middleware/auth";
+import { adminMiddleware } from "../middleware/role";
 import { ok, error } from "../lib/response";
 
 const router = Router();
@@ -52,6 +53,7 @@ const uploadDoc = multer({
 });
 
 router.use(authMiddleware);
+router.use(adminMiddleware);
 
 // ─── MIEMBROS ────────────────────────────────────────────────────────────────
 

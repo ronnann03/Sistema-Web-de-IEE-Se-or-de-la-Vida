@@ -100,4 +100,6 @@ export interface AuthUser {
   id: string;
   nombre: string;
   email: string;
+  rol: "ADMIN" | "ESTANDAR";
+  miembroId?: string | null;
 }

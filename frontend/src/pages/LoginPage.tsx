@@ -56,7 +56,7 @@ export default function LoginPage() {
           <img
             src={inicio}
             alt="Inicio de sesión"
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover object-top"
           />
           <div className="absolute inset-0 bg-black/5" />
         </div>

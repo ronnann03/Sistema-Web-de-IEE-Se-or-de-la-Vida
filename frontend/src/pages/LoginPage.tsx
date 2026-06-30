@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useAuth } from "../hooks/useAuth";
 import { User, Eye, EyeOff, AlertCircle, Info, CheckCircle } from "lucide-react";
+import logo from "../assets/Logo_IEE-removebg-preview.png";
+import inicio from "../assets/inicio.png";
 
 const schema = z.object({
   username: z.string().min(1, "Ingresa tu usuario"),
@@ -48,32 +50,27 @@ export default function LoginPage() {
 
   return (
     <>
-      <div className="flex w-full min-h-screen bg-white">
+      <div className="flex w-full h-screen bg-white">
         {/* Lado izquierdo: imagen (oculto en móviles) */}
         <div className="hidden lg:block lg:w-1/2 relative bg-gray-100 overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&q=80&w=1200"
-            alt="Docente en clase"
-            className="absolute inset-0 w-full h-full object-cover grayscale-[10%] brightness-[93%] contrast-[102%] object-left"
-            style={{ transform: "scale(1.02)" }}
+            src={inicio}
+            alt="Inicio de sesión"
+            className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/5" />
         </div>
 
         {/* Lado derecho: formulario */}
-        <div className="w-full lg:w-1/2 bg-white flex flex-col justify-between p-8 sm:p-12 md:p-16 lg:p-16 xl:p-24 relative">
+        <div className="w-full lg:w-1/2 bg-white flex flex-col justify-center p-8 sm:p-12 md:p-16 lg:p-16 xl:p-24 relative">
 
-          {/* Cabecera: logo PORTAL DOCENTE */}
-          <div className="flex items-center justify-between gap-4 mb-10">
-            <div className="flex items-center gap-1.5 select-none">
+          {/* Cabecera + formulario alineados */}
+          <div className="max-w-[430px] w-full mx-auto space-y-6 sm:space-y-8">
+            <div className="flex items-center gap-3 select-none">
               <span className="font-title font-black text-xl sm:text-2xl tracking-tight text-black">PORTAL DE</span>
               <span className="font-title font-black text-xl sm:text-2xl tracking-tight text-[#0054a6]">ASISTENCIAS</span>
+              <img src={logo} alt="Logo IEE" className="h-[60px] w-auto object-contain flex-shrink-0" />
             </div>
-            <div />
-          </div>
-
-          {/* Cuerpo: formulario */}
-          <div className="max-w-[430px] w-full mx-auto my-auto space-y-6 sm:space-y-8">
             {/* Saludo */}
             <div className="space-y-2">
               <h1 className="text-[34px] sm:text-[40px] font-black text-[#1e293b] leading-tight font-title tracking-tight">¡Hola!</h1>
@@ -116,7 +113,7 @@ export default function LoginPage() {
                 )}
                 <div className="flex items-start gap-1.5 text-xs sm:text-[12.5px] text-[#0f2d4a] font-semibold leading-relaxed pt-1">
                   <Info className="w-[17px] h-[17px] text-[#0054a6] flex-shrink-0 mt-0.5" />
-                  <span>Ejemplo de usuario: C15331</span>
+                  <span>Ejemplo de usuario: D12345 o P12345</span>
                 </div>
               </div>
 
@@ -181,7 +178,6 @@ export default function LoginPage() {
             </form>
           </div>
 
-          <div className="mt-10" />
         </div>
       </div>
 

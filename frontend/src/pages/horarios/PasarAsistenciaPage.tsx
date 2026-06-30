@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { ArrowLeft, CheckCircle, XCircle, Clock, AlarmClock, Save } from "lucide-react";
 import { horariosService } from "../../services/horarios";
 import { getUploadUrl } from "../../services/api";
@@ -18,7 +18,6 @@ interface Registro { miembroId: string; tipo: TipoAsistencia; observacion: strin
 
 export default function PasarAsistenciaPage() {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const [horario, setHorario] = useState<Horario | null>(null);
   const [fecha, setFecha] = useState(new Date().toISOString().slice(0, 10));
   const [descripcion, setDescripcion] = useState("");

@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useAuth } from "../hooks/useAuth";
 import { User, Eye, EyeOff, AlertCircle, Info, CheckCircle } from "lucide-react";
+import logo from "../assets/Logo_IEE-removebg-preview.png";
 
 const schema = z.object({
   username: z.string().min(1, "Ingresa tu usuario"),
@@ -65,7 +66,8 @@ export default function LoginPage() {
 
           {/* Cabecera: logo PORTAL DOCENTE */}
           <div className="flex items-center justify-between gap-4 mb-10">
-            <div className="flex items-center gap-1.5 select-none">
+            <div className="flex items-center gap-3 select-none">
+              <img src={logo} alt="Logo IEE" className="h-[60px] w-auto object-contain flex-shrink-0" />
               <span className="font-title font-black text-xl sm:text-2xl tracking-tight text-black">PORTAL DE</span>
               <span className="font-title font-black text-xl sm:text-2xl tracking-tight text-[#0054a6]">ASISTENCIAS</span>
             </div>
@@ -116,7 +118,7 @@ export default function LoginPage() {
                 )}
                 <div className="flex items-start gap-1.5 text-xs sm:text-[12.5px] text-[#0f2d4a] font-semibold leading-relaxed pt-1">
                   <Info className="w-[17px] h-[17px] text-[#0054a6] flex-shrink-0 mt-0.5" />
-                  <span>Ejemplo de usuario: C15331</span>
+                  <span>Ejemplo de usuario: 12345</span>
                 </div>
               </div>
 
